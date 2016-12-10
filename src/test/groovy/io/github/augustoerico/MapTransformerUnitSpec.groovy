@@ -21,7 +21,23 @@ class MapTransformerUnitSpec extends Specification {
 
     }
 
-    def 'Should transform a complex map'() {
+    def 'Should transform a simple list'() {
+
+        given:
+        def list = ['one', 'two']
+
+        and:
+        def closure = { it.toUpperCase() }
+
+        when:
+        def result = transformer.transform list, closure
+
+        then:
+        result == ['ONE', 'TWO']
+
+    }
+
+    def 'Should transform a mix of maps and lists'() {
 
         given:
         def map = [
@@ -29,9 +45,7 @@ class MapTransformerUnitSpec extends Specification {
                 bar: [
                         foo: 'foo',
                         bar: ['one', 'two', 'three'],
-                        boo: [
-                                tar: [ [foo: 'foo'], [bar: 'bar'] ]
-                        ]
+                        boo: [tar: [ [foo: 'foo'], [bar: 'bar'] ]]
                 ],
                 boo: ['four']
         ]
